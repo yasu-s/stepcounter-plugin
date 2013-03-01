@@ -1,6 +1,9 @@
-#Sat Dec 24 11:59:24 JST 2011
-eclipse.preferences.version=1
+#Mon Feb 25 21:41:35 JST 2013
+encoding//src/test/java=UTF-8
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.5
-org.eclipse.jdt.core.compiler.compliance=1.5
-org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
+eclipse.preferences.version=1
+encoding//src/test/resources=UTF-8
 org.eclipse.jdt.core.compiler.source=1.5
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+org.eclipse.jdt.core.compiler.compliance=1.5

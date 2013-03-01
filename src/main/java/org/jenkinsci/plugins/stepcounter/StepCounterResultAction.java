@@ -64,7 +64,7 @@ public class StepCounterResultAction implements Action {
     }
 
     public String getDisplayName() {
-        return "StepCounterResultAction";
+        return Messages.StepCounterProjectAction_Title();
     }
 
     public String getIconFileName() {
@@ -205,14 +205,14 @@ public class StepCounterResultAction implements Action {
                 public String generateURL(CategoryDataset dataset, int row, int column) {
                     NumberOnlyBuildLabel label = (NumberOnlyBuildLabel) dataset.getColumnKey(column);
                     return relPath + label.build.getNumber() + "/"
-                            + StepCounterProjectAction.STEPCOUNTERPROJECTACTION_PATH + "/";
+                            + "stepResult" + "/";
                 }
 
                 @Override
                 public String generateToolTip(CategoryDataset dataset, int row, int column) {
                     NumberOnlyBuildLabel label = (NumberOnlyBuildLabel) dataset.getColumnKey(column);
-                    StepCounterProjectAction a = label.build.getAction(StepCounterProjectAction.class);
-                    Map<String, StepCounterResult> stepsMap = a.getResult().getStepsMap();
+                    StepCounterResultAction a = label.build.getAction(StepCounterResultAction.class);
+                    Map<String, StepCounterResult> stepsMap = a.getStepsMap();
                     Comparable<?> key = dataset.getRowKey(row);
                     for (Entry<String, StepCounterResult> entry : stepsMap.entrySet()) {
                         if (entry.getKey().equals(key)) {
@@ -255,12 +255,12 @@ public class StepCounterResultAction implements Action {
                 return null;
             if (b.getResult() == Result.FAILURE)
                 continue;
-            StepCounterProjectAction r = b.getAction(StepCounterProjectAction.class);
+            StepCounterResultAction r = b.getAction(StepCounterResultAction.class);
             if (r != null)
-                return r.getResult();
+                return r;
         }
     }
-    
+
     public AbstractBuild<?, ?> getOwner(){
         return this.owner;
     }
