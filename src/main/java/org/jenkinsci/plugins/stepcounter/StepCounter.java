@@ -4,7 +4,6 @@ import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.Action;
 import hudson.model.BuildListener;
-import hudson.model.Describable;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
@@ -13,8 +12,6 @@ import hudson.tasks.Publisher;
 import hudson.util.FormValidation;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,7 +24,7 @@ import org.kohsuke.stapler.QueryParameter;
 public class StepCounter extends Publisher {
 
     public List<StepCounterSetting> settings;
-    
+
     @Extension
     public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
@@ -44,10 +41,7 @@ public class StepCounter extends Publisher {
     @Override
     public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener) {
         try {
-            StepCounterProjectAction projectAction = new StepCounterProjectAction(build.getProject());
-            StepCounterResultAction resultAction = new StepCounterResultAction(build);
-            build.addAction(projectAction);
-            projectAction.setResult(resultAction);
+            StepCounterResultAction action = new StepCounterResultAction(build);
 
             for (StepCounterSetting setting : getSettings()) {
                 String encoding = setting.getEncoding();
@@ -58,8 +52,10 @@ public class StepCounter extends Publisher {
                 StepCounterParser finder = new StepCounterParser(setting.getFilePattern(),
                         setting.getFilePatternExclude(), encoding, listener);
                 StepCounterResult result = build.getWorkspace().act(finder);
-                resultAction.putStepsMap(setting.getKey(), result);
+                action.putStepsMap(setting.getKey(), result);
             }
+
+            build.getActions().add(action);
         } catch (Exception e) {
             listener.error(e.getMessage());
             e.printStackTrace();
@@ -91,8 +87,7 @@ public class StepCounter extends Publisher {
         return BuildStepMonitor.STEP;
     }
 
-    @Override
-    public Collection<Action> getProjectActions(AbstractProject<?, ?> project) {
-        return Collections.<Action> singleton(new StepCounterProjectAction(project));
+    public Action getProjectAction(AbstractProject<?, ?> project) {
+        return new StepCounterProjectAction(project);
     }
 }
