@@ -74,7 +74,7 @@ public class StepCounter extends Publisher {
          * This human readable name is used in the configuration screen.
          */
         public String getDisplayName() {
-            return "Step Counter";
+            return Messages.StepCounter_DisplayName();
         }
 
         public FormValidation doCheckSettings(@QueryParameter String key) throws IOException, ServletException {

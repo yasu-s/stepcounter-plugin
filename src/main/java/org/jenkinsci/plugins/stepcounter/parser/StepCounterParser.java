@@ -6,7 +6,6 @@ import hudson.remoting.VirtualChannel;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import org.jenkinsci.plugins.stepcounter.model.FileStep;
 import org.jenkinsci.plugins.stepcounter.model.StepCounterResult;
@@ -55,7 +54,7 @@ public class StepCounterParser implements FileCallable<StepCounterResult> {
         listener.getLogger().println("解析完了:" + result.getFileSteps().size() + "ファイル");
 
         long total = 0;
-        for (Object oStep : result.getFileSteps()) {
+        for (Object oStep : result.getFileSteps().values()) {
             FileStep step = (FileStep) oStep;
             total += step.getRuns();
         }
@@ -67,7 +66,7 @@ public class StepCounterParser implements FileCallable<StepCounterResult> {
     /**
      * Parses the specified collection of files and appends the results to the
      * provided container.
-     * 
+     *
      * @param workspace
      *            the workspace root
      * @param fileNames

@@ -7,8 +7,5 @@
         <div>
             <img src="stepCounter/trend" lazymap="stepCounter/trend" alt="ステップ数推移"/>
         </div>
-        <div style="text-align:right">
-            <a href="stepCounter">${%enlarge}</a>
-        </div>
     </div>
 </j:jelly>

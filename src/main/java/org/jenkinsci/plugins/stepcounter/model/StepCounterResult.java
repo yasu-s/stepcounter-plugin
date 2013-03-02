@@ -2,16 +2,18 @@ package org.jenkinsci.plugins.stepcounter.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StepCounterResult implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	List<FileStep> _steps = new ArrayList<FileStep>();
+	Map<String, FileStep> _steps = new HashMap<String, FileStep>();
 
 	List<String> errorMessages = new ArrayList<String>();
 
@@ -28,17 +30,21 @@ public class StepCounterResult implements Serializable{
 		this.errorMessages.add(errorMessage);
 	}
 
-	public List<FileStep> getFileSteps() {
+	public Map<String, FileStep> getFileSteps() {
 		return _steps;
 	}
 
-	public void setFileSteps(List<FileStep> steps) {
+	public FileStep getFileStep(String key) {
+	    return _steps.get(key);
+	}
+
+	public void setFileSteps(Map<String, FileStep> steps) {
 		this._steps = steps;
 		totalSum = 0;
 		commentSum = 0;
 		blankSum = 0;
 		runSum = 0;
-		for (FileStep fileStep : steps) {
+		for (FileStep fileStep : steps.values()) {
 			totalSum += fileStep.getTotal();
 			commentSum += fileStep.getComments();
 			blankSum += fileStep.getBlanks();
@@ -47,7 +53,7 @@ public class StepCounterResult implements Serializable{
 	}
 
 	public void addFileStep(FileStep fileStep) {
-		_steps.add(fileStep);
+		_steps.put(fileStep.getFilePath(), fileStep);
 		totalSum += fileStep.getTotal();
 		commentSum += fileStep.getComments();
 		blankSum += fileStep.getBlanks();

@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class FileStep implements Serializable {
 
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1395778114180423941L;
 
@@ -91,4 +91,7 @@ public class FileStep implements Serializable {
 
     }
 
+    public String getFilePath() {
+        return _parentDirRelativePath + "/" + _fileName;
+    }
 }

@@ -1,0 +1,30 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+         xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <j:choose>
+        <j:when test="${empty plusColor}">
+            <j:set var="plusColorStyle" value="color:red"/>
+        </j:when>
+        <j:otherwise>
+            <j:set var="plusColorStyle" value="${'color:' + plusColor}"/>
+        </j:otherwise>
+    </j:choose>
+    <j:choose>
+        <j:when test="${empty minusColor}">
+            <j:set var="minusColorStyle" value="color:blue"/>
+        </j:when>
+        <j:otherwise>
+            <j:set var="minusColorStyle" value="${'color:' + minusColor}"/>
+        </j:otherwise>
+    </j:choose>
+    <j:choose>
+        <j:when test="${previousValue == currentValue || previousValue == null || currentValue == null}">
+            <st:nbsp />
+        </j:when>
+        <j:when test="${currentValue lt previousValue}">
+            <span style="${minusColorStyle}">-${previousValue - currentValue}</span>
+        </j:when>
+        <j:when test="${currentValue gt previousValue}">
+            <span style="${plusColorStyle}">+${currentValue - previousValue}</span>
+        </j:when>
+    </j:choose>
+</j:jelly>

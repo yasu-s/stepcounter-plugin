@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.jenkinsci.plugins.stepcounter.util.Constants;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -24,15 +25,22 @@ public class StepCounterProjectAction implements Action {
     }
 
     public String getIconFileName() {
-        return "graph.gif";
+        return Constants.ACTION_ICON;
     }
 
     public String getUrlName() {
-        return "stepCounter";
+        return Constants.ACTION_URL;
     }
 
     public AbstractProject<?, ?> getProject() {
         return project;
+    }
+
+    public void doIndex(final StaplerRequest request, final StaplerResponse response) throws IOException {
+        AbstractBuild<?, ?> build = getLastFinishedBuild();
+        if (build != null) {
+            response.sendRedirect2(String.format("../%d/%s", build.getNumber(), Constants.ACTION_URL));
+        }
     }
 
     public void doTrend(final StaplerRequest req, final StaplerResponse rsp) throws IOException {
@@ -42,7 +50,6 @@ public class StepCounterProjectAction implements Action {
 //        else
             rsp.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
-
 
     public AbstractBuild<?, ?> getLastFinishedBuild() {
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();

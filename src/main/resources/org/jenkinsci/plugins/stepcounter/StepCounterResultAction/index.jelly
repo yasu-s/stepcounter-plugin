@@ -1,5 +1,7 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+         xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt"
+         xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
 	<l:layout title="Step Counter">
 	    <st:include it="${it.build}" page="sidepanel.jelly" />
 		<l:main-panel>
@@ -10,98 +12,105 @@
 				$(function(){
 					$('#tabs').tabs({
 						selected: 0,
-						fx: { opacity: 'toggle', duration: 'fast'	}
-						});
+						fx: { opacity: 'toggle', duration: 'fast' }
+					});
 				});
 			</script>
 
-			<j:set var="allRunsSum" value="0" />
-			<j:set var="allCommentsSum" value="0" />
-			<j:set var="allBlanksSum" value="0" />
-			<j:set var="allTotalSum" value="0" />
-			<j:set var="allFileNum" value="0" />
-			<j:forEach var="iter" items="${it.result.stepsMap}">
-				<j:set var="allFileNum" value="${allFileNum + iter.value.fileSteps.size()}" />
-				<j:forEach var="fileStep" items="${iter.value.fileSteps}">
-					<j:set var="allRunsSum" value="${allRunsSum + fileStep.runs}" />
-					<j:set var="allCommentsSum" value="${allCommentsSum + fileStep.comments}" />
-					<j:set var="allBlanksSum" value="${allBlanksSum + fileStep.blanks}" />
-					<j:set var="allTotalSum" value="${allTotalSum + fileStep.total}" />
-				</j:forEach>
-			</j:forEach>
+			<j:set var="currentAction"  value="${it}" />
+			<j:set var="previousAction" value="${it.previousResult}" />
 
-			<div align="left"><h1>全カテゴリ ${allFileNum} ファイルのサマリ</h1></div>
+			<div align="left"><h1>全カテゴリ ${currentAction.allFileNum} ファイルのサマリ</h1></div>
 			<table class="pane" id="allSummary">
 				<tr>
 					<td class="pane-header"> 全カテゴリ 実行行合計</td>
+					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 					<td class="pane-header"> 全カテゴリ コメント行合計</td>
+					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 					<td class="pane-header"> 全カテゴリ 空行合計</td>
+					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 					<td class="pane-header"> 全カテゴリ 総計</td>
+					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 				</tr>
 				<tbody>
 					<tr>
-						<td class="pane">${allRunsSum}</td>
-						<td class="pane">${allCommentsSum}</td>
-						<td class="pane">${allBlanksSum}</td>
-						<td class="pane">${allTotalSum}</td>
+						<td class="pane" style="text-align:right">${currentAction.allRunsSum}</td>
+						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allRunsSum}"     previousValue="${previousAction.allRunsSum}" /></td>
+						<td class="pane" style="text-align:right">${currentAction.allCommentsSum}</td>
+						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allCommentsSum}" previousValue="${previousAction.allCommentsSum}" /></td>
+						<td class="pane" style="text-align:right">${currentAction.allBlanksSum}</td>
+						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allBlanksSum}"   previousValue="${previousAction.allBlanksSum}" /></td>
+						<td class="pane" style="text-align:right">${currentAction.allTotalSum}</td>
+						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allTotalSum}"    previousValue="${previousAction.allTotalSum}" /></td>
 					</tr>
 				</tbody>
 			</table>
+
 			<div align="left"><h1>各カテゴリのサマリ</h1></div>
 			<div id="tabs">
 				<ul>
-					<j:forEach var="iter" items="${it.result.stepsMap}">
+					<j:forEach var="iter" items="${it.stepsMap}">
 						<li><a href="#${iter.key}">${iter.key}</a></li>
 					</j:forEach>
 				</ul>
-				<j:forEach var="iter" items="${it.result.stepsMap}">
+				<j:forEach var="iter" items="${it.stepsMap}">
+					<j:set var="currentCategory"  value="${iter.value}"/>
+					<j:set var="previousCategory" value="${it.getPreviousStepsMap(iter.key)}"/>
 					<div id="${iter.key}">
-						<div align="left"><h3>${iter.value.fileSteps.size()} ファイルのサマリ</h3></div>
+						<div align="left"><h3>${currentCategory.fileSteps.size()} ファイルのサマリ</h3></div>
 						<table class="pane" id="summary">
 							<tr>
 								<td class="pane-header"> 実行行合計</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 								<td class="pane-header"> コメント行合計</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 								<td class="pane-header"> 空行合計</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 								<td class="pane-header"> 総計</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 							</tr>
 							<tbody>
-								<j:set var="runsSum" value="0" />
-								<j:set var="commentsSum" value="0" />
-								<j:set var="blanksSum" value="0" />
-								<j:set var="totalSum" value="0" />
-								<j:forEach var="fileStep" items="${iter.value.fileSteps}" indexVar="index">
-									<j:set var="runsSum" value="${runsSum + fileStep.runs}" />
-									<j:set var="commentsSum" value="${commentsSum + fileStep.comments}" />
-									<j:set var="blanksSum" value="${blanksSum + fileStep.blanks}" />
-									<j:set var="totalSum" value="${totalSum + fileStep.total}" />
-								</j:forEach>
-								<tr >
-									<td class="pane">${runsSum}</td>
-									<td class="pane">${commentsSum}</td>
-									<td class="pane">${blanksSum}</td>
-									<td class="pane">${totalSum}</td>
+								<tr>
+									<td class="pane" style="text-align:right">${currentCategory.runsSum}</td>
+									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.runsSum}"     previousValue="${previousCategory.runsSum}" /></td>
+									<td class="pane" style="text-align:right">${currentCategory.commentsSum}</td>
+									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.commentsSum}" previousValue="${previousCategory.commentsSum}" /></td>
+									<td class="pane" style="text-align:right">${currentCategory.blanksSum}</td>
+									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.blanksSum}"   previousValue="${previousCategory.blanksSum}" /></td>
+									<td class="pane" style="text-align:right">${currentCategory.totalSum}</td>
+									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.totalSum}"    previousValue="${previousCategory.totalSum}" /></td>
 								</tr>
 							</tbody>
 						</table>
 						<div align="left"><h3>各ファイルの詳細</h3></div>
-						<table class="sortable pane" id="summary">
+						<table class="sortable pane">
 							<tr>
 								<td class="pane-header"> ファイルパス</td>
 								<td class="pane-header"> ファイル名</td>
 								<td class="pane-header"> 実行行数</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 								<td class="pane-header"> コメント行数</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 								<td class="pane-header"> 空行数</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 								<td class="pane-header"> 合計</td>
+								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
 							</tr>
 							<tbody>
-								<j:forEach var="fileStep" items="${iter.value.fileSteps}" indexVar="index">
+								<j:forEach var="fileStep" items="${currentCategory.fileSteps}">
+									<j:set var="currentFile"  value="${fileStep.value}"/>
+									<j:set var="previousFile" value="${previousCategory.getFileStep(fileStep.key)}"/>
 									<tr>
-										<td class="pane">${fileStep.parentDirRelativePath}</td>
-										<td class="pane">${fileStep.fileName}</td>
-										<td class="pane">${fileStep.runs}</td>
-										<td class="pane">${fileStep.comments}</td>
-										<td class="pane">${fileStep.blanks}</td>
-										<td class="pane">${fileStep.total}</td>
+										<td class="pane">${currentFile.parentDirRelativePath}</td>
+										<td class="pane">${currentFile.fileName}</td>
+										<td class="pane" style="text-align:right">${currentFile.runs}</td>
+										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.runs}"     previousValue="${previousFile.runs}" /></td>
+										<td class="pane" style="text-align:right">${currentFile.comments}</td>
+										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.comments}" previousValue="${previousFile.comments}" /></td>
+										<td class="pane" style="text-align:right">${currentFile.blanks}</td>
+										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.blanks}"   previousValue="${previousFile.blanks}" /></td>
+										<td class="pane" style="text-align:right">${currentFile.total}</td>
+										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.total}"    previousValue="${previousFile.total}" /></td>
 									</tr>
 								</j:forEach>
 							</tbody>
