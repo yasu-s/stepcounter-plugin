@@ -3,16 +3,16 @@
          xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
     <table class="sortable pane">
         <tr>
-            <td class="pane-header"> ファイルパス</td>
-            <td class="pane-header"> ファイル名</td>
-            <td class="pane-header"> 実行行数</td>
-            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> コメント行数</td>
-            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 空行数</td>
-            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 合計</td>
-            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"><s:sortHeader header="ファイルパス" /></td>
+            <td class="pane-header"><s:sortHeader header="ファイル名" /></td>
+            <td class="pane-header"><s:sortHeader header="実行行数" /></td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
+            <td class="pane-header"><s:sortHeader header="コメント行数" /></td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
+            <td class="pane-header"><s:sortHeader header="空行数" /></td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
+            <td class="pane-header"><s:sortHeader header="合計" /></td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
         </tr>
         <tbody>
             <j:forEach var="fileStep" items="${currentCategory.fileSteps}">
@@ -22,13 +22,13 @@
                     <td class="pane">${currentFile.parentDirRelativePath}</td>
                     <td class="pane">${currentFile.fileName}</td>
                     <td class="pane" style="text-align:right">${currentFile.runs}</td>
-                    <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.runs}"     previousValue="${previousFile.runs}" /></td>
+                    <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.runs}" previousValue="${previousFile.runs}" /></td>
                     <td class="pane" style="text-align:right">${currentFile.comments}</td>
                     <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.comments}" previousValue="${previousFile.comments}" /></td>
                     <td class="pane" style="text-align:right">${currentFile.blanks}</td>
-                    <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.blanks}"   previousValue="${previousFile.blanks}" /></td>
+                    <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.blanks}" previousValue="${previousFile.blanks}" /></td>
                     <td class="pane" style="text-align:right">${currentFile.total}</td>
-                    <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.total}"    previousValue="${previousFile.total}" /></td>
+                    <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.total}" previousValue="${previousFile.total}" /></td>
                 </tr>
             </j:forEach>
         </tbody>
