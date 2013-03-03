@@ -44,10 +44,20 @@ public class StepCounterProjectAction implements Action {
     }
 
     public void doTrend(final StaplerRequest req, final StaplerResponse rsp) throws IOException {
-//        StepCounterResultAction a = getPreviousResult();
-//        if (a != null)
-//            a.createGraph(req, rsp);
-//        else
+        AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
+        StepCounterResultAction a = lastBuild.getAction(StepCounterResultAction.class);
+        if (a != null)
+            a.doTrend(req, rsp);
+        else
+            rsp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+
+    public void doTrendMap(final StaplerRequest req, final StaplerResponse rsp) throws IOException {
+        AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
+        StepCounterResultAction a = lastBuild.getAction(StepCounterResultAction.class);
+        if (a != null)
+            a.doTrendMap(req, rsp);
+        else
             rsp.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 

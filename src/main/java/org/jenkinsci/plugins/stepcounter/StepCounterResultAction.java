@@ -99,15 +99,16 @@ public class StepCounterResultAction implements Action {
         return relPath;
     }
 
-    public void createClickableMap(StaplerRequest req, StaplerResponse rsp) throws IOException {
+    public void doTrend(final StaplerRequest req, final StaplerResponse rsp) throws IOException {
+        Graph graph = createDefaultGraph(req, rsp);
+        graph.doPng(req, rsp);
+    }
+
+    public void doTrendMap(final StaplerRequest req, final StaplerResponse rsp) throws IOException {
         Graph graph = createDefaultGraph(req, rsp);
         graph.doMap(req, rsp);
     }
 
-    public void createGraph(StaplerRequest req, StaplerResponse rsp) throws IOException {
-        Graph graph = createDefaultGraph(req, rsp);
-        graph.doPng(req, rsp);
-    }
 
     private Graph createDefaultGraph(StaplerRequest req, StaplerResponse rsp) throws IOException {
         final String relPath = getRelPath(req);

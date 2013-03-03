@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.jenkinsci.plugins.stepcounter.model.StepCounterResult;
+import org.jenkinsci.plugins.stepcounter.util.Constants;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -104,7 +105,7 @@ public class GraphImpl extends Graph {
             public String generateURL(CategoryDataset dataset, int row, int column) {
                 NumberOnlyBuildLabel label = (NumberOnlyBuildLabel) dataset.getColumnKey(column);
                 return relPath + label.build.getNumber() + "/"
-                        + "stepResult" + "/";
+                        + Constants.ACTION_URL + "/";
             }
 
             @Override
@@ -130,10 +131,6 @@ public class GraphImpl extends Graph {
         for (int i = 0; i < ar.getColumnCount(); i++) {
             ar.setSeriesPaint(i, _colors.get(_colors.values().toArray()[i]));
         }
-        // ar.setSeriesPaint(0, ColorPalette.BLUE);
-        // ar.setSeriesPaint(1, ColorPalette.YELLOW);
-        // ar.setSeriesPaint(2, ColorPalette.GREY); //TODO
-        // ar.setSeriesPaint(3, Color.black);
 
         // crop extra space around the graph
         plot.setInsets(new RectangleInsets(0, 0, 0, 5.0));

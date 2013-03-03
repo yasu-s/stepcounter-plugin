@@ -5,6 +5,6 @@
          xmlns:f="/lib/form"
          xmlns:i="jelly:fmt">
     <t:summary icon="graph.gif">
-        TODO:
+        <a href="stepCounter"><img src="stepCounter/trend" lazymap="stepCounter/trendMap" /></a>
     </t:summary>
 </j:jelly>

@@ -5,7 +5,7 @@
             ステップ数の推移
         </div>
         <div>
-            <img src="stepCounter/trend" lazymap="stepCounter/trend" alt="ステップ数推移"/>
+            <img src="stepCounter/trend" lazymap="stepCounter/trendMap" alt="ステップ数推移"/>
         </div>
     </div>
 </j:jelly>
