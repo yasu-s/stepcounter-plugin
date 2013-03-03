@@ -1,0 +1,28 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+         xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+         xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
+    <table class="pane" id="summary">
+        <tr>
+            <td class="pane-header"> 実行行合計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"> コメント行合計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"> 空行合計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"> 総計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+        </tr>
+        <tbody>
+            <tr>
+                <td class="pane" style="text-align:right">${currentCategory.runsSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.runsSum}"     previousValue="${previousCategory.runsSum}" /></td>
+                <td class="pane" style="text-align:right">${currentCategory.commentsSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.commentsSum}" previousValue="${previousCategory.commentsSum}" /></td>
+                <td class="pane" style="text-align:right">${currentCategory.blanksSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.blanksSum}"   previousValue="${previousCategory.blanksSum}" /></td>
+                <td class="pane" style="text-align:right">${currentCategory.totalSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.totalSum}"    previousValue="${previousCategory.totalSum}" /></td>
+            </tr>
+        </tbody>
+    </table>
+</j:jelly>

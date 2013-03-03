@@ -1,0 +1,28 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+         xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
+         xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
+    <table class="pane" id="allSummary">
+        <tr>
+            <td class="pane-header"> 全カテゴリ 実行行合計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"> 全カテゴリ コメント行合計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"> 全カテゴリ 空行合計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+            <td class="pane-header"> 全カテゴリ 総計</td>
+            <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
+        </tr>
+        <tbody>
+            <tr>
+                <td class="pane" style="text-align:right">${currentAction.allRunsSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allRunsSum}"     previousValue="${previousAction.allRunsSum}" /></td>
+                <td class="pane" style="text-align:right">${currentAction.allCommentsSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allCommentsSum}" previousValue="${previousAction.allCommentsSum}" /></td>
+                <td class="pane" style="text-align:right">${currentAction.allBlanksSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allBlanksSum}"   previousValue="${previousAction.allBlanksSum}" /></td>
+                <td class="pane" style="text-align:right">${currentAction.allTotalSum}</td>
+                <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allTotalSum}"    previousValue="${previousAction.allTotalSum}" /></td>
+            </tr>
+        </tbody>
+    </table>
+</j:jelly>

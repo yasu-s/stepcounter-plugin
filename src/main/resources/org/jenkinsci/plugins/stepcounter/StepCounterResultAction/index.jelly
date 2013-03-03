@@ -21,30 +21,7 @@
 			<j:set var="previousAction" value="${it.previousResult}" />
 
 			<div align="left"><h1>全カテゴリ ${currentAction.allFileNum} ファイルのサマリ</h1></div>
-			<table class="pane" id="allSummary">
-				<tr>
-					<td class="pane-header"> 全カテゴリ 実行行合計</td>
-					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-					<td class="pane-header"> 全カテゴリ コメント行合計</td>
-					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-					<td class="pane-header"> 全カテゴリ 空行合計</td>
-					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-					<td class="pane-header"> 全カテゴリ 総計</td>
-					<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-				</tr>
-				<tbody>
-					<tr>
-						<td class="pane" style="text-align:right">${currentAction.allRunsSum}</td>
-						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allRunsSum}"     previousValue="${previousAction.allRunsSum}" /></td>
-						<td class="pane" style="text-align:right">${currentAction.allCommentsSum}</td>
-						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allCommentsSum}" previousValue="${previousAction.allCommentsSum}" /></td>
-						<td class="pane" style="text-align:right">${currentAction.allBlanksSum}</td>
-						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allBlanksSum}"   previousValue="${previousAction.allBlanksSum}" /></td>
-						<td class="pane" style="text-align:right">${currentAction.allTotalSum}</td>
-						<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allTotalSum}"    previousValue="${previousAction.allTotalSum}" /></td>
-					</tr>
-				</tbody>
-			</table>
+			<s:totalSummary currentAction="${currentAction}" previousAction="${previousAction}" />
 
 			<div align="left"><h1>各カテゴリのサマリ</h1></div>
 			<div id="tabs">
@@ -58,63 +35,10 @@
 					<j:set var="previousCategory" value="${it.getPreviousStepsMap(iter.key)}"/>
 					<div id="${iter.key}">
 						<div align="left"><h3>${currentCategory.fileSteps.size()} ファイルのサマリ</h3></div>
-						<table class="pane" id="summary">
-							<tr>
-								<td class="pane-header"> 実行行合計</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-								<td class="pane-header"> コメント行合計</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-								<td class="pane-header"> 空行合計</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-								<td class="pane-header"> 総計</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-							</tr>
-							<tbody>
-								<tr>
-									<td class="pane" style="text-align:right">${currentCategory.runsSum}</td>
-									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.runsSum}"     previousValue="${previousCategory.runsSum}" /></td>
-									<td class="pane" style="text-align:right">${currentCategory.commentsSum}</td>
-									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.commentsSum}" previousValue="${previousCategory.commentsSum}" /></td>
-									<td class="pane" style="text-align:right">${currentCategory.blanksSum}</td>
-									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.blanksSum}"   previousValue="${previousCategory.blanksSum}" /></td>
-									<td class="pane" style="text-align:right">${currentCategory.totalSum}</td>
-									<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.totalSum}"    previousValue="${previousCategory.totalSum}" /></td>
-								</tr>
-							</tbody>
-						</table>
+						<s:categorySummary currentCategory="${currentCategory}" previousCategory="${previousCategory}"  />
+
 						<div align="left"><h3>各ファイルの詳細</h3></div>
-						<table class="sortable pane">
-							<tr>
-								<td class="pane-header"> ファイルパス</td>
-								<td class="pane-header"> ファイル名</td>
-								<td class="pane-header"> 実行行数</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-								<td class="pane-header"> コメント行数</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-								<td class="pane-header"> 空行数</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-								<td class="pane-header"> 合計</td>
-								<td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-							</tr>
-							<tbody>
-								<j:forEach var="fileStep" items="${currentCategory.fileSteps}">
-									<j:set var="currentFile"  value="${fileStep.value}"/>
-									<j:set var="previousFile" value="${previousCategory.getFileStep(fileStep.key)}"/>
-									<tr>
-										<td class="pane">${currentFile.parentDirRelativePath}</td>
-										<td class="pane">${currentFile.fileName}</td>
-										<td class="pane" style="text-align:right">${currentFile.runs}</td>
-										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.runs}"     previousValue="${previousFile.runs}" /></td>
-										<td class="pane" style="text-align:right">${currentFile.comments}</td>
-										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.comments}" previousValue="${previousFile.comments}" /></td>
-										<td class="pane" style="text-align:right">${currentFile.blanks}</td>
-										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.blanks}"   previousValue="${previousFile.blanks}" /></td>
-										<td class="pane" style="text-align:right">${currentFile.total}</td>
-										<td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentFile.total}"    previousValue="${previousFile.total}" /></td>
-									</tr>
-								</j:forEach>
-							</tbody>
-						</table>
+						<s:fileTable currentCategory="${currentCategory}" previousCategory="${previousCategory}" />
 					</div>
 				</j:forEach>
 			</div>
