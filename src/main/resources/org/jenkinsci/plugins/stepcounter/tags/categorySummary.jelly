@@ -3,13 +3,13 @@
          xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
     <table class="pane" id="summary">
         <tr>
-            <td class="pane-header"> 実行行合計</td>
+            <td class="pane-header">${%RunsSum}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> コメント行合計</td>
+            <td class="pane-header">${%CommentsSum}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 空行合計</td>
+            <td class="pane-header">${%BlanksSum}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 総計</td>
+            <td class="pane-header">${%TotalSum}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
         </tr>
         <tbody>

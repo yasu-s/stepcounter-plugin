@@ -3,13 +3,13 @@
          xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
     <table class="pane" id="allSummary">
         <tr>
-            <td class="pane-header"> 全カテゴリ 実行行合計</td>
+            <td class="pane-header">${%RunLine}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 全カテゴリ コメント行合計</td>
+            <td class="pane-header">${%CommentLine}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 全カテゴリ 空行合計</td>
+            <td class="pane-header">${%BlankLine}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
-            <td class="pane-header"> 全カテゴリ 総計</td>
+            <td class="pane-header">${%TotalLine}</td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;">${%Diff}</td>
         </tr>
         <tbody>

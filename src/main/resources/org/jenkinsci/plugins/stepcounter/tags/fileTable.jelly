@@ -3,15 +3,15 @@
          xmlns:s="/org/jenkinsci/plugins/stepcounter/tags">
     <table class="sortable pane">
         <tr>
-            <td class="pane-header"><s:sortHeader header="ファイルパス" /></td>
-            <td class="pane-header"><s:sortHeader header="ファイル名" /></td>
-            <td class="pane-header"><s:sortHeader header="実行行数" /></td>
+            <td class="pane-header"><s:sortHeader header="${%FilePath}" /></td>
+            <td class="pane-header"><s:sortHeader header="${%FileName}" /></td>
+            <td class="pane-header"><s:sortHeader header="${%RunLine}" /></td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
-            <td class="pane-header"><s:sortHeader header="コメント行数" /></td>
+            <td class="pane-header"><s:sortHeader header="${%CommentLine}" /></td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
-            <td class="pane-header"><s:sortHeader header="空行数" /></td>
+            <td class="pane-header"><s:sortHeader header="${%BlankLine}" /></td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
-            <td class="pane-header"><s:sortHeader header="合計" /></td>
+            <td class="pane-header"><s:sortHeader header="${%TotalLine}" /></td>
             <td class="pane-header" style="width:1em; font-size:smaller; white-space:nowrap;"><s:sortHeader header="${%Diff}" /></td>
         </tr>
         <tbody>
