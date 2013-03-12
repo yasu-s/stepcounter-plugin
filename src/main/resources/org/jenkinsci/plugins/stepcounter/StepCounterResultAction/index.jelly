@@ -20,10 +20,10 @@
 			<j:set var="currentAction"  value="${it}" />
 			<j:set var="previousAction" value="${it.previousResult}" />
 
-			<div align="left"><h1>全カテゴリ ${currentAction.allFileNum} ファイルのサマリ</h1></div>
+			<div align="left"><h1>${%All Category File Summary(currentAction.allFileNum)}</h1></div>
 			<s:totalSummary currentAction="${currentAction}" previousAction="${previousAction}" />
 
-			<div align="left"><h1>各カテゴリのサマリ</h1></div>
+			<div align="left"><h1>${%Summary of each category}</h1></div>
 			<div id="tabs">
 				<ul>
 					<j:forEach var="iter" items="${it.stepsMap}">
@@ -34,10 +34,10 @@
 					<j:set var="currentCategory"  value="${iter.value}"/>
 					<j:set var="previousCategory" value="${it.getPreviousStepsMap(iter.key)}"/>
 					<div id="${iter.key}">
-						<div align="left"><h3>${currentCategory.fileSteps.size()} ファイルのサマリ</h3></div>
+						<div align="left"><h3>${%File Summary(currentCategory.fileSteps.size())}</h3></div>
 						<s:categorySummary currentCategory="${currentCategory}" previousCategory="${previousCategory}"  />
 
-						<div align="left"><h3>各ファイルの詳細</h3></div>
+						<div align="left"><h3>${%Details of each file}</h3></div>
 						<s:fileTable currentCategory="${currentCategory}" previousCategory="${previousCategory}" />
 					</div>
 				</j:forEach>
