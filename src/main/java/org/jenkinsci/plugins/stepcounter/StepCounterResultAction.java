@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.jenkinsci.plugins.stepcounter.model.StepCounterResult;
 import org.jenkinsci.plugins.stepcounter.util.Constants;
+import org.jenkinsci.plugins.stepcounter.util.StepCounterUtil;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -70,6 +71,18 @@ public class StepCounterResultAction implements Action {
 
     public long getAllFileNum() {
         return allFileNum;
+    }
+
+    public String getCommentsSumPercent() {
+        return StepCounterUtil.convertPercent(allCommentsSum, allTotalSum);
+    }
+
+    public String getBlanksSumPercent() {
+        return StepCounterUtil.convertPercent(allBlanksSum, allTotalSum);
+    }
+
+    public String getRunsSumPercent() {
+        return StepCounterUtil.convertPercent(allRunsSum, allTotalSum);
     }
 
     public Map<String, StepCounterResult> getStepsMap() {

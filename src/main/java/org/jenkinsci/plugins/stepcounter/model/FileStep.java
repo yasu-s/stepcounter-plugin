@@ -3,6 +3,8 @@ package org.jenkinsci.plugins.stepcounter.model;
 import java.io.File;
 import java.io.Serializable;
 
+import org.jenkinsci.plugins.stepcounter.util.StepCounterUtil;
+
 public class FileStep implements Serializable {
 
     /**
@@ -94,4 +96,17 @@ public class FileStep implements Serializable {
     public String getFilePath() {
         return _parentDirRelativePath + "/" + _fileName;
     }
+
+    public String getRunsPercent() {
+        return StepCounterUtil.convertPercent(_runs, _total);
+    }
+
+    public String getBlanksPercent() {
+        return StepCounterUtil.convertPercent(_blanks, _total);
+    }
+
+    public String getCommentsPercent() {
+        return StepCounterUtil.convertPercent(_comments, _total);
+    }
+
 }

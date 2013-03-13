@@ -10,6 +10,7 @@ import java.io.IOException;
 import org.jenkinsci.plugins.stepcounter.model.FileStep;
 import org.jenkinsci.plugins.stepcounter.model.StepCounterResult;
 import org.jenkinsci.plugins.stepcounter.util.FileFinder;
+import org.jenkinsci.plugins.stepcounter.util.StepCounterUtil;
 
 import tk.stepcounter.CountResult;
 import tk.stepcounter.StepCounter;

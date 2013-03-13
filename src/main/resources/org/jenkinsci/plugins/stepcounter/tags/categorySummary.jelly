@@ -14,11 +14,11 @@
         </tr>
         <tbody>
             <tr>
-                <td class="pane" style="text-align:right">${currentCategory.runsSum}</td>
+                <td class="pane" style="text-align:right">${currentCategory.runsSum} (${currentCategory.runsSumPercent}%)</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.runsSum}"     previousValue="${previousCategory.runsSum}" /></td>
-                <td class="pane" style="text-align:right">${currentCategory.commentsSum}</td>
+                <td class="pane" style="text-align:right">${currentCategory.commentsSum} (${currentCategory.commentsSumPercent}%)</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.commentsSum}" previousValue="${previousCategory.commentsSum}" /></td>
-                <td class="pane" style="text-align:right">${currentCategory.blanksSum}</td>
+                <td class="pane" style="text-align:right">${currentCategory.blanksSum} (${currentCategory.blanksSumPercent}%)</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.blanksSum}"   previousValue="${previousCategory.blanksSum}" /></td>
                 <td class="pane" style="text-align:right">${currentCategory.totalSum}</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentCategory.totalSum}"    previousValue="${previousCategory.totalSum}" /></td>

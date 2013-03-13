@@ -14,11 +14,11 @@
         </tr>
         <tbody>
             <tr>
-                <td class="pane" style="text-align:right">${currentAction.allRunsSum}</td>
+                <td class="pane" style="text-align:right">${currentAction.allRunsSum} (${currentAction.runsSumPercent}%)</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allRunsSum}"     previousValue="${previousAction.allRunsSum}" /></td>
-                <td class="pane" style="text-align:right">${currentAction.allCommentsSum}</td>
+                <td class="pane" style="text-align:right">${currentAction.allCommentsSum} (${currentAction.commentsSumPercent}%)</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allCommentsSum}" previousValue="${previousAction.allCommentsSum}" /></td>
-                <td class="pane" style="text-align:right">${currentAction.allBlanksSum}</td>
+                <td class="pane" style="text-align:right">${currentAction.allBlanksSum} (${currentAction.blanksSumPercent}%)</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allBlanksSum}"   previousValue="${previousAction.allBlanksSum}" /></td>
                 <td class="pane" style="text-align:right">${currentAction.allTotalSum}</td>
                 <td class="pane" style="text-align:right"><s:numberDiffField currentValue="${currentAction.allTotalSum}"    previousValue="${previousAction.allTotalSum}" /></td>

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jenkinsci.plugins.stepcounter.util.StepCounterUtil;
+
 public class StepCounterResult implements Serializable{
 
 	/**
@@ -75,4 +77,16 @@ public class StepCounterResult implements Serializable{
 	public long getRunsSum() {
 		return runSum;
 	}
+
+	public String getCommentsSumPercent() {
+	    return StepCounterUtil.convertPercent(commentSum, totalSum);
+	}
+
+	public String getBlanksSumPercent() {
+        return StepCounterUtil.convertPercent(blankSum, totalSum);
+    }
+
+	public String getRunsSumPercent() {
+        return StepCounterUtil.convertPercent(runSum, totalSum);
+    }
 }
