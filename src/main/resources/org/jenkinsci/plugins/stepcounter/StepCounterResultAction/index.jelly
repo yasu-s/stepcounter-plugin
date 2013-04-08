@@ -20,6 +20,9 @@
 			<j:set var="currentAction"  value="${it}" />
 			<j:set var="previousAction" value="${it.previousResult}" />
 
+			<div align="left"><h1>${%Step Trend}</h1></div>
+			<img src="stepTrend" />
+
 			<div align="left"><h1>${%All Category File Summary(currentAction.allFileNum)}</h1></div>
 			<s:totalSummary currentAction="${currentAction}" previousAction="${previousAction}" />
 

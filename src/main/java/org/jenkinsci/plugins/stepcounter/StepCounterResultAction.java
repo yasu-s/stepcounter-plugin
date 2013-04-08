@@ -122,6 +122,10 @@ public class StepCounterResultAction implements Action {
         graph.doMap(req, rsp);
     }
 
+    public void doStepTrend(final StaplerRequest req, final StaplerResponse rsp) throws IOException {
+        Graph graph = new StepGraph(this, getBuild().getTimestamp(), 800, 200);
+        graph.doPng(req, rsp);
+    }
 
     private Graph createDefaultGraph(StaplerRequest req, StaplerResponse rsp) throws IOException {
         final String relPath = getRelPath(req);
@@ -140,7 +144,7 @@ public class StepCounterResultAction implements Action {
         int width = (w != null) ? Integer.valueOf(w) : 500;
         int height = (h != null) ? Integer.valueOf(h) : 200;
 
-        Graph graph = new GraphImpl(this, t, width, height, relPath);
+        Graph graph = new CategoryGraph(this, t, width, height, relPath);
         return graph;
     }
 
